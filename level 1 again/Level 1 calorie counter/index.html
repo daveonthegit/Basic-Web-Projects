@@ -1,0 +1,184 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title></title>
+        <script>
+            class Food{
+                constructor(row_id,num_proteins,num_carbohydrates,num_fats){
+                    this.row_obj_ = document.getElementById(row_id);
+                    this.row_obj_.getElementsByClassName("CourseDisplay")[0].innerHTML=row_id;
+                    this.row_id_ = row_id;
+                    this.num_proteins_=num_proteins;
+                    this.num_carbohydrates_=num_carbohydrates;
+                    this.num_fats_=num_fats;
+                    this.num_cals_=0;
+                }
+                updateCalories(){
+                    this.num_cals_=(this.num_fats_*9)+(this.num_carbohydrates_*4)+(this.num_proteins_*4);
+                    this.row_obj_.getElementsByClassName("Calories")[0].getElementsByClassName("Counter")[0].innerHTML = "Calories " + this.num_cals_;
+                    globalCalorieUpdate();
+                }
+                modifyValue(type,amount){
+                    if(type =="Carbohydrates"){
+                        this.num_carbohydrates_+=amount;
+                        if(this.num_carbohydrates_<0)
+                            this.num_carbohydrates_=0;
+                        this.row_obj_.getElementsByClassName(type)[0].getElementsByClassName("Counter")[0].innerHTML = "Carbohydrates : " + this.num_carbohydrates_;
+                    }
+                    if(type =="Fats"){
+                        this.num_fats_+=amount;
+                        if(this.num_fats_<0)
+                            this.num_fats_=0;
+                        this.row_obj_.getElementsByClassName(type)[0].getElementsByClassName("Counter")[0].innerHTML = "Fats : " + this.num_fats_;
+                    }
+                    if(type =="Proteins"){
+                        this.num_proteins_+=amount;
+                        if(this.num_proteins_<0)
+                            this.num_proteins_=0;
+                        this.row_obj_.getElementsByClassName(type)[0].getElementsByClassName("Counter")[0].innerHTML = "Proteins : " + this.num_proteins_;
+                    }
+                    console.log(type+ " amount modified");
+                    console.log(this.row_obj_.id);
+                    this.updateCalories();
+                }
+            }
+            function initialize(){
+                appetizer = new Food("Appetizer",0,0,0);
+                entree = new Food("Entree",0,0,0);
+                dessert = new Food("Dessert",0,0,0);
+                total_cals = 0;
+                global_calorie_counter = document.getElementById("CalTotal");
+            }
+            function globalCalorieUpdate(){
+                total_cals = appetizer.num_cals_+entree.num_cals_+dessert.num_cals_;
+                global_calorie_counter.innerHTML = "Calories: " + total_cals;
+            }
+        </script>
+        <style></style>
+    </head>
+    <body onload="initialize();">
+        <table>
+            <tr id="Appetizer">
+                <td class="CourseDisplay"></td>
+                <td class="Proteins">
+                    <div class="Counter">
+                        Proteins: 0
+                    </div>
+                    <div>
+                        <button onclick="appetizer.modifyValue('Proteins',1);">+</button>
+                        <button onclick="appetizer.modifyValue('Proteins',-1);">-</button>
+                    </div>
+                </td>
+                <td class="Fats">
+                    <div class="Counter">
+                        Fats: 0
+                    </div>
+                    <div>
+                        <button onclick="appetizer.modifyValue('Fats',1);">+</button>
+                        <button onclick="appetizer.modifyValue('Fats',-1);">-</button>
+                    </div>
+                </td>
+                <td class="Carbohydrates">
+                    <div class="Counter">
+                        Carbohydrates: 0
+                    </div>
+                    <div>
+                        <button onclick="appetizer.modifyValue('Carbohydrates',1);">+</button>
+                        <button onclick="appetizer.modifyValue('Carbohydrates',-1);">-</button>
+                    </div>
+                </td>
+                <td class="Calories">
+                    <div class="Counter">
+                        Calories: 0
+                    </div>
+                    
+                    <div>
+                        
+                    </div>
+                </td>
+            </tr>
+            <tr id="Entree">
+                <td class="CourseDisplay"></td>
+                <td class="Proteins">
+                    <div class="Counter">
+                        Proteins: 0
+                    </div>
+                    <div>
+                        <button onclick="entree.modifyValue('Proteins',1);">+</button>
+                        <button onclick="entree.modifyValue('Proteins',-1);">-</button>
+                    </div>
+                </td>
+                <td class="Fats">
+                    <div class="Counter">
+                        Fats: 0
+                    </div>
+                    <div>
+                        <button onclick="entree.modifyValue('Fats',1);">+</button>
+                        <button onclick="entree.modifyValue('Fats',-1);">-</button>
+                    </div>
+                </td>
+                <td class="Carbohydrates">
+                    <div class="Counter">
+                        Carbohydrates: 0
+                    </div>
+                    <div>
+                        <button onclick="entree.modifyValue('Carbohydrates',1);">+</button>
+                        <button onclick="entree.modifyValue('Carbohydrates',-1);">-</button>
+                    </div>
+                </td>
+                <td class="Calories">
+                    <div class="Counter">
+                        Calories: 0
+                    </div>
+                    
+                    <div>
+                        
+                    </div>
+                </td>
+            </tr>
+            <tr id="Dessert">
+                <td class="CourseDisplay"></td>
+                <td class="Proteins">
+                    <div class="Counter">
+                        Proteins: 0
+                    </div>
+                    <div>
+                        <button onclick="dessert.modifyValue('Proteins',1);">+</button>
+                        <button onclick="dessert.modifyValue('Proteins',-1);">-</button>
+                    </div>
+                </td>
+                <td class="Fats">
+                    <div class="Counter">
+                        Fats: 0
+                    </div>
+                    <div>
+                        <button onclick="dessert.modifyValue('Fats',1);">+</button>
+                        <button onclick="dessert.modifyValue('Fats',-1);">-</button>
+                    </div>
+                </td>
+                <td class="Carbohydrates">
+                    <div class="Counter">
+                        Carbohydrates: 0
+                    </div>
+                    <div>
+                        <button onclick="dessert.modifyValue('Carbohydrates',1);">+</button>
+                        <button onclick="dessert.modifyValue('Carbohydrates',-1);">-</button>
+                    </div>
+                </td>
+                <td class="Calories">
+                    <div class="Counter">
+                        Calories: 0
+                    </div>
+                    
+                    <div>
+                        
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="CalTotal">
+            Total Calories: 0
+        </div>
+    </body>
+
+</html>
