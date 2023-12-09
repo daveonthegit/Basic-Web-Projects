@@ -2,16 +2,196 @@
 <html>
 	<head>
 		<title></title>
-		<style></style>
+		<style>
+            table{
+                margin-left:auto;
+                margin-right:auto;
+            }
+            td{
+                text-align: center;
+            }
+            div{
+                text-align:center;
+            }
+        </style>
 		<script>
-		
+            class Robot{
+                constructor(robot_id,power_level,top_speed,structural_integrity,scanners,defenses,power_type){
+                    this.robot_id_ = robot_id;
+                    this.robot_obj_ = document.getElementById(this.robot_id_);
+                    this.power_level_ = power_level;
+                    this.top_speed_ = top_speed;
+                    this.structural_integrity_=structural_integrity;
+                    this.scanners_=scanners;
+                    this.defenses_=defenses;
+                    this.power_type_=power_type;
+                    this.images_ = [
+                    "https://spectrum.ieee.org/media-library/image.png?id=49486562", 
+                    "https://i.pinimg.com/originals/7f/0f/1f/7f0f1f4d292407d7228dd207464febfb.jpg",
+                    "https://t3.ftcdn.net/jpg/05/86/40/28/360_F_586402864_Dlpy7KYZxYq9UqJdsSZuBiDCsTyKfQYo.jpg",
+                    "https://t3.ftcdn.net/jpg/05/79/75/50/360_F_579755032_SGUPxkaJxNbyzuxOzg6mIzkTN3Enovv6.jpg",
+                    "https://t3.ftcdn.net/jpg/05/54/00/68/360_F_554006834_zB8Ct4lhnyg5WBfSf6S7wuezYbSDQhgw.jpg",
+                    "https://storage.googleapis.com/pai-images/4fc59e4dd5554722b0b072eb6447acd0.jpeg"
+                    ];
+                }
+
+                setPowerLevel(power_level){
+                    this.power_level_=power_level;
+                    if(this.power_level_<0)
+                        this.power_level_ = 0;
+                    this.robot_obj_.getElementsByClassName("display power_level")[0].innerHTML = "Power Level: "+ this.power_level_;
+                }
+                getPowerLevel(){
+                    return this.power_level_;
+                }
+                setTopSpeed(top_speed){
+                    this.top_speed_=top_speed;
+                    if(this.top_speed_<0)
+                        this.top_speed_ = 0;
+                    this.robot_obj_.getElementsByClassName("display speed")[0].innerHTML = "Top Speed: "+ this.top_speed_;
+                }
+                getTopSpeed(){
+                    return this.top_speed_;
+                }
+                setStructuralIntegrity(structural_integrity){
+                    this.structural_integrity_=structural_integrity;
+                    if(this.structural_integrity_<0)
+                        this.structural_integrity_ = 0;
+                    this.robot_obj_.getElementsByClassName("display integrity")[0].innerHTML = "Structural Integrity: "+ this.structural_integrity_;
+                }
+                getStructuralIntegrity(){
+                    return this.structural_integrity_;
+                }
+                toggleScanners(){
+                    this.scanners_=!this.scanners_;
+                    if(this.scanners_== true){
+                        this.robot_obj_.getElementsByClassName("toggle scanners")[0].innerHTML = "On";
+                    }else{
+                        this.robot_obj_.getElementsByClassName("toggle scanners")[0].innerHTML = "Off";
+                    }
+                }
+                getScanners(){
+                    return this.scanners_;
+                }
+                toggleDefenses(){
+                    this.defenses_=!this.defenses_;
+                    if(this.defenses_== true){
+                        this.robot_obj_.getElementsByClassName("toggle defenses")[0].innerHTML = "On";
+                    }else{
+                        this.robot_obj_.getElementsByClassName("toggle defenses")[0].innerHTML = "Off";
+                    }
+                }
+                getDefenses(){
+                    return this.defenses_;
+                }
+                setPowerType(power_type){
+                    this.power_type_=power_type;
+                    this.robot_obj_.getElementsByClassName("display power_type")[0].innerHTML = "Power Type: "+ this.power_type_;
+                }
+                getPowerType(){
+                    return this.power_type_;
+                }
+                changeImage(image){
+                    this.robot_obj_.getElementsByClassName("display robot")[0].src = this.images_[image];
+                }
+            }
+
 			function initialize()
 			{
+                main_robot = new Robot("Robot",0, 0, 0, false,false,'None');
 			}
 		
 		</script>
 	</head>
 		
 	<body onload = "initialize();">
+        <table id= "Robot">
+            <tr>
+                <td>
+                    <div>.</div>
+                </td>
+                <td >
+                    Robot
+                </td>
+                <td>
+                    <div>.</div>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="display power_level">
+                        Power Level: 0
+                    </div>
+                    <div>
+                        <button onclick="main_robot.setPowerLevel(main_robot.getPowerLevel()+1);">+</button>
+                        <button onclick="main_robot.setPowerLevel(main_robot.getPowerLevel()-1);">-</button>
+                    </div>
+                    <div class="display speed">
+                        Top Speed: 0
+                    </div>
+                    <div>
+                        <button onclick="main_robot.setTopSpeed(main_robot.getTopSpeed()+1);">+</button>
+                        <button onclick="main_robot.setTopSpeed(main_robot.getTopSpeed()-1);">-</button>
+                    </div>
+                    <div class="display integrity">
+                        Structural Integrity: 0
+                    </div>
+                    <div>
+                        <button onclick="main_robot.setStructuralIntegrity(main_robot.getStructuralIntegrity()+1);">+</button>
+                        <button onclick="main_robot.setStructuralIntegrity(main_robot.getStructuralIntegrity()-1);">-</button>
+                    </div>
+                </td>
+                <td>
+                    <img class="display robot" src="https://spectrum.ieee.org/media-library/image.png?id=49486562" height="400">
+                </td>
+                <td>
+                    <div class="display scanners">
+                        Scanners:
+                    </div>
+                    <div>
+                        <button class="toggle scanners" onclick="main_robot.toggleScanners();">Off</button>
+                    </div>
+                    <div class="display defenses">
+                        Defenses:
+                    </div>
+                    <div>
+                        <button class="toggle defenses"  onclick="main_robot.toggleDefenses();">Off</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                    <div class="display power_type">Power Type: No Power Installed</div>
+                    <div>
+                        <button onclick="main_robot.setPowerType('Solar');">
+                            Solar
+                        </button>
+                        <button onclick="main_robot.setPowerType('Nuclear');">
+                            Nuclear
+                        </button>
+                        <button onclick="main_robot.setPowerType('Hydro');">
+                            Hydro
+                        </button>
+                    </div>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </table>
+        <div>
+            <img onclick="main_robot.changeImage(0);" src ="https://spectrum.ieee.org/media-library/image.png?id=49486562" height="100">
+            <img onclick="main_robot.changeImage(1);" src ="https://i.pinimg.com/originals/7f/0f/1f/7f0f1f4d292407d7228dd207464febfb.jpg" height="100">
+            <img onclick="main_robot.changeImage(2);" src ="https://t3.ftcdn.net/jpg/05/86/40/28/360_F_586402864_Dlpy7KYZxYq9UqJdsSZuBiDCsTyKfQYo.jpg" height="100">
+            <img onclick="main_robot.changeImage(3);" src ="https://t3.ftcdn.net/jpg/05/79/75/50/360_F_579755032_SGUPxkaJxNbyzuxOzg6mIzkTN3Enovv6.jpg" height="100">
+            <img onclick="main_robot.changeImage(4);" src ="https://t3.ftcdn.net/jpg/05/54/00/68/360_F_554006834_zB8Ct4lhnyg5WBfSf6S7wuezYbSDQhgw.jpg" height="100">
+            <img onclick="main_robot.changeImage(5);" src ="https://storage.googleapis.com/pai-images/4fc59e4dd5554722b0b072eb6447acd0.jpeg" height="100">
+        </div>
+
 	</body>
 </html>
